@@ -1,10 +1,12 @@
 package com.example.pt7_gilromero_luisfelipe;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
 public class Album {
     private String artist;
-    private ArrayList<String> songs;
+    private String songs;
 
     public Album(String artist, String songs) {
         this.artist = artist;
@@ -15,7 +17,7 @@ public class Album {
         return artist;
     }
 
-    public ArrayList<String> getSongs() {
+    public String getSongs() {
         return songs;
     }
 
@@ -23,7 +25,7 @@ public class Album {
         this.artist = name;
     }
 
-    public void setSongs(ArrayList<String> songs) {
+    public void setSongs(String songs) {
         this.songs = songs;
     }
 

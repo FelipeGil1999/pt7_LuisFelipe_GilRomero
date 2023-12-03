@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(this, Pelicula.class);
             startActivity(intent);
         }
-        if (view.getId()==R.id.grupo_musical){
+        if (view.getId()==R.id.grupo_musical_button){
             Intent intent = new Intent(this, Grupo.class);
             startActivity(intent);
         }

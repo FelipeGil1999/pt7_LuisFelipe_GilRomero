@@ -53,7 +53,7 @@ public class Grupo extends AppCompatActivity {
         nombre = nombre.replace(" ", "%20");
 
 
-        String link = "https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=8a263c45ed98a92790c525a6ee0d5c76&artist=" + nombre + "&album=Cross%20Road&format=json";
+        String link = "https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=8a263c45ed98a92790c525a6ee0d5c76&artist=" + "Bon%20Jovi" + "&album=Cross%20Road&format=json";
 
         if (hiHaConnexio())
             //Cargamos los datos de la url en el recycler listTeams
@@ -98,25 +98,37 @@ public class Grupo extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            elements.clear();
+
+
                             JSONArray trackArray = response.getJSONObject("album").getJSONObject("tracks").getJSONArray("track");
+
                             for (int i = 0; i < trackArray.length(); i++) {
                                 JSONObject trackObject = trackArray.getJSONObject(i);
-                                Album album = new Album(
-                                        response.getJSONObject("album").getString("artist"),
-                                        trackObject.getString("name")
-                                );
+                                String artist = response.getJSONObject("album").getString("artist");
+                                String trackName = trackObject.getString("name");
+
+                                Album album = new Album(artist, trackName);
                                 elements.add(album);
                             }
 
-                            listSongs.getAdapter.notifyDataSetChanged();
+                            // Notify data set changed once, after the loop
+                            listSongs.getAdapter().notifyDataSetChanged();
 
+                            // Print artists for testing
+                            for (int i = 0; i < elements.size(); i++) {
+                                System.out.println(elements.get(i).getArtist());
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
 
+
+                        listSongs.getAdapter().notifyDataSetChanged();
+                        for (int i = 0; i < elements.size(); i++) {
+                            System.out.println(elements.get(i).getArtist());
+                        }
                     }
                 },
                 new Response.ErrorListener() {
