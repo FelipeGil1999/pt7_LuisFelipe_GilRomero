@@ -11,8 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.pt7_gilromero_luisfelipe.Album;
-import com.example.pt7_gilromero_luisfelipe.R;
+import org.json.JSONException;
 
 import java.util.List;
 
@@ -20,11 +19,11 @@ import java.util.List;
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder>{
 
     //Definimos variables
-    private List<Album> elements;
+    private List<Disc> elements;
 
 
     //Constructor
-    public MyRecyclerViewAdapter(List<Album> elements){
+    public MyRecyclerViewAdapter(List<Disc> elements){
         this.elements = elements;
     }
 
@@ -43,7 +42,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         // Configura el contenido del ViewHolder en la posición especificada
-        holder.getTxtElement().setText(elements.get(position).getArtist());
+        holder.getTxtElement().setText(elements.get(position).getName());
     }
 
     // Método que devuelve la cantidad total de elementos en el RecyclerView
@@ -69,23 +68,26 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 }
             });
 
-            textElement = itemView.findViewById(R.id.textView);
+            textElement = itemView.findViewById(R.id.item_song);
 
         }
 
 
 
-        private void mostraElement(View v) {
+        private void mostraElement(View v) throws JSONException {
 
             // Cridem la pantalla de mostrar personatge i li passem les dades
-            //Intent mostrarTeam = new Intent(v.getContext(), InfoTeam.class);
-            //Ligue ligue = elements.get(getAdapterPosition());
+            Intent mostrarSongs = new Intent(v.getContext(), Songs.class);
+            Disc disco = elements.get(getAdapterPosition());
+
+            mostrarSongs.putExtra("name", disco.getName());
+
             //mostrarTeam.putExtra("id", ligue.getTeam_id());
             //mostrarTeam.putExtra("team_abbreviation", ligue.getTeam_abbreviation());
             //mostrarTeam.putExtra("name", ligue.getTeam_name());
             //mostrarTeam.putExtra("extension", extension);
             //mostrarTeam.putExtra("link", link);
-            //v.getContext().startActivity(mostrarTeam);
+            v.getContext().startActivity(mostrarSongs);
 
         }
 

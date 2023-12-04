@@ -1,32 +1,84 @@
 package com.example.pt7_gilromero_luisfelipe;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class Album {
-    private String artist;
-    private String songs;
 
-    public Album(String artist, String songs) {
+    private JSONObject stremeable;
+    private int duration;
+
+    private String url;
+    private String name;
+
+    private JSONObject attr;
+
+    private JSONObject artist;
+
+
+    //Constructor
+    public Album(JSONObject stremeable, int duration, String url, String name, JSONObject attr, JSONObject artist) {
+        this.stremeable = stremeable;
+        this.duration = duration;
+        this.url = url;
+        this.name = name;
+        this.attr = attr;
         this.artist = artist;
-        this.songs = songs;
     }
 
-    public String getArtist() {
+    //Getters
+    public JSONObject getStremeable() {
+        return stremeable;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public JSONObject getAttr() {
+        return attr;
+    }
+
+    public JSONObject getArtist() {
         return artist;
     }
 
-    public String getSongs() {
-        return songs;
+    //Setters
+
+    public void setStremeable(JSONObject stremeable) {
+        this.stremeable = stremeable;
     }
 
-    public void setArtist(String name) {
-        this.artist = name;
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
-    public void setSongs(String songs) {
-        this.songs = songs;
+    public void setUrl(String url) {
+        this.url = url;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAttr(JSONObject attr) {
+        this.attr = attr;
+    }
+
+    public void setArtist(JSONObject artist) {
+        this.artist = artist;
+    }
+
+
 
 }

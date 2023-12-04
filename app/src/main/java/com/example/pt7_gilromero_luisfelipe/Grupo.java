@@ -32,8 +32,8 @@ public class Grupo extends AppCompatActivity {
     EditText grupo;
 
     private RequestQueue queue = null;
-    private final List<Album> elements = new ArrayList<>();
-    public List<Album> getElements() {
+    private final List<Disc> elements = new ArrayList<>();
+    public List<Disc> getElements() {
         return elements;
     }
 
@@ -53,10 +53,10 @@ public class Grupo extends AppCompatActivity {
         nombre = nombre.replace(" ", "%20");
 
 
-        String link = "https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=8a263c45ed98a92790c525a6ee0d5c76&artist=" + "Bon%20Jovi" + "&album=Cross%20Road&format=json";
+        String link = "https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=bon%20jovi&api_key=8a263c45ed98a92790c525a6ee0d5c76&format=json";
 
         if (hiHaConnexio())
-            //Cargamos los datos de la url en el recycler listTeams
+            //Cargamos los datos de la url en el recycler listSongs
             loadData(listSongs, link);
         else
             Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
@@ -100,35 +100,45 @@ public class Grupo extends AppCompatActivity {
                         try {
 
 
-                            JSONArray trackArray = response.getJSONObject("album").getJSONObject("tracks").getJSONArray("track");
+                            JSONArray trackArray = response.getJSONObject("topalbums").getJSONArray("album");
 
+                            System.out.println(trackArray);
                             for (int i = 0; i < trackArray.length(); i++) {
                                 JSONObject trackObject = trackArray.getJSONObject(i);
-                                String artist = response.getJSONObject("album").getString("artist");
-                                String trackName = trackObject.getString("name");
 
-                                Album album = new Album(artist, trackName);
-                                elements.add(album);
+                                String name = trackObject.getString("name");
+                                int playcount = trackObject.getInt("playcount");
+
+                                String url = trackObject.getString("url");
+                                JSONObject attr = trackObject.getJSONObject("artist");
+                                JSONArray image = trackObject.getJSONArray("image");
+
+
+                                Disc disco = new Disc(
+                                        name,
+                                        playcount,
+                                        url,
+                                        attr,
+                                        image);
+
+                                elements.add(disco);
+                            }
+
+                            for (int i = 0; i < elements.size(); i++) {
+                                System.out.println(elements.get(i).getName());
                             }
 
                             // Notify data set changed once, after the loop
                             listSongs.getAdapter().notifyDataSetChanged();
 
-                            // Print artists for testing
-                            for (int i = 0; i < elements.size(); i++) {
-                                System.out.println(elements.get(i).getArtist());
-                            }
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
-
-
                         listSongs.getAdapter().notifyDataSetChanged();
-                        for (int i = 0; i < elements.size(); i++) {
-                            System.out.println(elements.get(i).getArtist());
-                        }
+
                     }
                 },
                 new Response.ErrorListener() {
