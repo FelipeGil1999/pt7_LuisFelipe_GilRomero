@@ -11,6 +11,8 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -31,6 +33,8 @@ public class Grupo extends AppCompatActivity {
 
     EditText grupo;
 
+    Button cargar;
+
     private RequestQueue queue = null;
     private final List<Disc> elements = new ArrayList<>();
     public List<Disc> getElements() {
@@ -48,18 +52,29 @@ public class Grupo extends AppCompatActivity {
         listSongs.setAdapter(adapter);
 
         grupo = findViewById(R.id.grupo);
-        String nombre = grupo.getText().toString();
-        nombre = nombre.toLowerCase();
-        nombre = nombre.replace(" ", "%20");
+        cargar = findViewById(R.id.cargar);
+
+        //Manejador para el clic en el botón de carga de equipos
+        findViewById(R.id.cargar).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String Apikey = "8a263c45ed98a92790c525a6ee0d5c76";
+                String nombre = grupo.getText().toString();
+                nombre = nombre.toLowerCase();
+                nombre = nombre.replace(" ", "%20");
 
 
-        String link = "https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=bon%20jovi&api_key=8a263c45ed98a92790c525a6ee0d5c76&format=json";
+                String link = "https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=" + nombre + "&api_key=" + Apikey + "&format=json";
 
-        if (hiHaConnexio())
-            //Cargamos los datos de la url en el recycler listSongs
-            loadData(listSongs, link);
-        else
-            Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
+                if (hiHaConnexio())
+                    //Cargamos los datos de la url en el recycler listSongs
+                    loadData(listSongs, link);
+                else
+                    Toast.makeText(getApplicationContext(), R.string.noInternet, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 
     private boolean hiHaConnexio() {
@@ -149,6 +164,8 @@ public class Grupo extends AppCompatActivity {
                 });
         queue.add(jsonObjectRequest);
     }
+
+
 
 
 }

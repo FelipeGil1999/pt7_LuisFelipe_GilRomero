@@ -21,8 +21,8 @@
 
     <EditText
         android:id="@+id/grupo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="197dp"
+        android:layout_height="32dp"
         android:ems="10"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,16 +34,27 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_songs"
-        android:layout_width="355dp"
-        android:layout_height="553dp"
+        android:layout_width="346dp"
+        android:layout_height="541dp"
         android:layout_marginStart="27dp"
         android:layout_marginEnd="24dp"
         android:textDirection="inherit"
+        app:layoutManager="LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.357"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cargar"
+        app:layout_constraintVertical_bias="0.523" />
+
+    <Button
+        android:id="@+id/cargar"
+        android:layout_width="179dp"
+        android:layout_height="49dp"
+        android:text="Cargar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layoutManager="LinearLayoutManager"
-        app:layout_constraintTop_toTopOf="@+id/grupo"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintVertical_bias="0.697" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.115" />
 </androidx.constraintlayout.widget.ConstraintLayout>

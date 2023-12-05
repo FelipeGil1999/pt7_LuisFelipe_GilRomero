@@ -63,7 +63,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 @Override
                 public void onClick(View v) {
                     // Al hacer clic, muestra el elemento en otra pantalla
-                    ViewHolder.this.mostraElement(v);
+                    try {
+                        ViewHolder.this.mostraElement(v);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
 
                 }
             });
@@ -81,14 +85,15 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             Disc disco = elements.get(getAdapterPosition());
 
             mostrarSongs.putExtra("name", disco.getName());
+            mostrarSongs.putExtra("image", disco.getImage().getJSONObject(0).getString("#text"));
+            mostrarSongs.putExtra("artist", disco.getArtist().getString("name"));
+            v.getContext().startActivity(mostrarSongs);
 
             //mostrarTeam.putExtra("id", ligue.getTeam_id());
             //mostrarTeam.putExtra("team_abbreviation", ligue.getTeam_abbreviation());
             //mostrarTeam.putExtra("name", ligue.getTeam_name());
             //mostrarTeam.putExtra("extension", extension);
             //mostrarTeam.putExtra("link", link);
-            v.getContext().startActivity(mostrarSongs);
-
         }
 
         // Métodos getter para obtener las referencias a los elementos de texto
